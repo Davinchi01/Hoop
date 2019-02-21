@@ -1,16 +1,33 @@
 import React from 'react'
-import {Form} from 'react-bootstrap'
-import {FormControlContainer} from "./style";
+import PropType from "prop-types";
 
-const FormField = ({
-                                field, // { name, value, onChange, onBlur }
-                                form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-                                type,
-                             ...props
-                              }) => (
+import FieldFormGroup from "../FieldFormGroup/index";
+import When from "../When/index";
+import {ErrorContainer, ErrorText, FormControl} from "./style";
+
+const FormField = (props) => {
+  const {field: {value, name}, form: {errors, touched}} = props
+  const error = !!errors[name] && !!touched[name]
+  return (
     <>
-      <Form.Control type="text" {...field} {...props} />
+      <FieldFormGroup {...props}>
+        <FormControl type="text" {...props.field} {...props} />
+        <ErrorContainer>
+          <When is={error}>
+            <ErrorText error={error}>{errors[name]}</ErrorText>
+          </When>
+        </ErrorContainer>
+      </FieldFormGroup>
     </>
-);
+  )
+};
+
+FormField.propTypes = {
+  label: PropType.string.isRequired,
+  field: PropType.object.isRequired,
+  form: PropType.object.isRequired,
+  narrow: PropType.bool,
+  required: PropType.bool,
+}
 
 export default FormField
