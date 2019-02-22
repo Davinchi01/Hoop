@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import FormContainer from "../../components/FormContainer/index";
-import Form from "../ActivityForm/components/Form";
+import Form from "./components/Form";
 import {Container as CustomContainer} from "../../style";
 import {mainBackgroundColor} from "../../constants/index";
 import FormFooter from "../../components/FormFooter/index";
@@ -12,7 +12,6 @@ class AddressForm extends PureComponent {
   }
 
   submitMyForm = null;
-  formProps = null;
 
   handleSubmitForm = (e) => {
     if (this.submitMyForm) {
@@ -20,9 +19,8 @@ class AddressForm extends PureComponent {
     }
   }
 
-  bindSubmitForm = (submitForm, props) => {
+  bindSubmitForm = submitForm => {
     this.submitMyForm = submitForm;
-    this.formProps = props
   }
 
   validateForm = valid => {
@@ -44,6 +42,7 @@ class AddressForm extends PureComponent {
         <FormFooter
           handleSubmitForm={this.handleSubmitForm}
           validForm={this.state.valid}
+          redirectTo="/activity-form"
         />
       </>
     );

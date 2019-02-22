@@ -1,12 +1,12 @@
 import React from 'react';
 import PropType from 'prop-types'
-import {Col, FormGroup, Row} from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
 import styled from 'styled-components'
 
 import {labelColor, labelColorSecondary} from "../../constants";
 import When from "../When";
 
-const FormLabelStyled = styled(FormGroup)`
+const FormLabelStyled = styled(Form.Label)`
   font-weight: bold;
   font-size: 14px;
   color: ${labelColor}
@@ -22,28 +22,29 @@ const RowStyled = styled(Row)`
   height: 27px;
 `
 
-const FieldFormGroup = ({label, required, narrow, children,}) => (
-  <FormGroup style={{marginBottom: 15}}>
-    <Col md={narrow ? 6 : 12}>
+const FieldFormGroup = ({label, required, narrow, children, col}) => (
+  <Form.Group as={Col} {...col} style={{marginBottom: 15}}>
+    <Col>
+      {label &&
       <RowStyled>
         <FormLabelStyled>{label}</FormLabelStyled>
         <When is={!required}>
           <OptionalField>optional</OptionalField>
         </When>
-      </RowStyled>
-      <Row>
+      </RowStyled>}
+      <Row >
         {children}
       </Row>
     </Col>
-  </FormGroup>
+  </Form.Group>
 );
 
 FieldFormGroup.propTypes = {
-  label: PropType.string.isRequired,
+  label: PropType.string,
   field: PropType.object.isRequired,
   form: PropType.object.isRequired,
-  narrow: PropType.bool,
   required: PropType.bool,
+  col: PropType.object,
 }
 
 export default FieldFormGroup;

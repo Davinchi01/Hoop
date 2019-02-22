@@ -11,8 +11,8 @@ class App extends Component {
       <>
         <GlobalStyles/>
         <Switch>
-          <Route path="/activity-form" component={ActivityForm}/>
-          <Route path="*" component={AddressForm}/>
+          <Route path="/address-form" component={AddressForm}/>
+          <Route component={ActivityForm}/>
         </Switch>
       </>
     );

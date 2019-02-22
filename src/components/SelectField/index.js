@@ -1,25 +1,25 @@
 import React from 'react'
 import PropType from "prop-types";
+import {Form} from "react-bootstrap";
 
 import FieldFormGroup from "../FieldFormGroup/index";
 import When from "../When/index";
-import {ErrorContainer, ErrorText, FormControl} from "./style";
+import {ErrorContainer, ErrorText, FormControl} from "../FormField/style";
 
-const FormField = (props) => {
-  const {
-    field: {value, name, onBlur, onChange},
-    form: {errors, touched},
-    type, as, placeholder} = props
+const SelectField = (props) => {
+  const {field: {value, name}, form: {errors, touched}} = props
   const error = !!errors[name] && !!touched[name]
+  console.log(props);
   return (
     <>
       <FieldFormGroup {...props}>
-        <FormControl
-          type={type}
-          as={as}
-          placeholder={placeholder}
-          {...props.field}
-        >{props.children && props.children}</FormControl>
+        <Form.Control as="select" {...props.field} {...props}>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </Form.Control>
         <ErrorContainer>
           <When is={error}>
             <ErrorText error={error}>{errors[name]}</ErrorText>
@@ -30,7 +30,7 @@ const FormField = (props) => {
   )
 };
 
-FormField.propTypes = {
+SelectField.propTypes = {
   label: PropType.string,
   field: PropType.object.isRequired,
   form: PropType.object.isRequired,
@@ -38,4 +38,4 @@ FormField.propTypes = {
   required: PropType.bool,
 }
 
-export default FormField
+export default SelectField

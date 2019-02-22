@@ -29,13 +29,13 @@ const Shadow = styled.div`
   padding-top: 1px;
 `
 
-const FormFooter = ({handleSubmitForm, validForm}) => (
+const FormFooter = ({handleSubmitForm, validForm, redirectTo}) => (
   <Shadow>
     <Wrapper>
       <StyledCol md={{span: 8, offset: 2}} xs={12}>
         <Row style={{justifyContent: 'flex-end'}}>
           <SecondaryButton onClick={() => {}}>Back</SecondaryButton>
-          <Link to='/activity-form'>
+          <Link to={redirectTo}>
             <MainButton
               disabled={!validForm}
               onClick={handleSubmitForm}
@@ -50,6 +50,7 @@ const FormFooter = ({handleSubmitForm, validForm}) => (
 FormFooter.propTypes = {
   handleSubmitForm: PropTypes.func.isRequired,
   validForm: PropTypes.bool,
+  redirectTo: PropTypes.string,
 }
 
 export default FormFooter;

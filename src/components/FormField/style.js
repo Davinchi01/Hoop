@@ -15,4 +15,7 @@ export const ErrorText = styled.p`
 
 export const FormControl = styled(Form.Control)`
   border: 2px solid ${fieldBorderColor};
+  width: 100%;
+  background-color: white;
+  height: 40px;
 `

@@ -1,21 +1,19 @@
 import React from 'react';
 import {Field, Formik} from 'formik';
-import {Col, Container} from "react-bootstrap";
+import {Col, Container, Form, Row} from "react-bootstrap";
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import FormField from "../../../components/FormField/index";
-import {mobileBreakdown} from "../../../constants/index";
+import {ageOptions, mobileBreakdown} from "../../../constants/index";
 import {FormHeader, InfoButton, Title} from "../../../style";
 
 const initialValues = {
-  name: '',
-  postCode: '',
-  buildingUnit: '',
-  buildingName: '',
-  streetNumber: '',
-  streetName: '',
-  town: ''
+  activityName: '',
+  recommendedAgeFrom: '',
+  recommendedAgeTo: '',
+  activityWebPage: '',
+  activityPhoneNumber: '',
 }
 
 const validateField = (value) => {
@@ -24,10 +22,6 @@ const validateField = (value) => {
     error = 'Required field !';
   }
   return error;
-}
-
-const onSubmit = (props) => {
-  console.log(props);
 }
 
 const validate = obj => Object.keys(obj).length === 0
@@ -39,69 +33,75 @@ const StyledContainer = styled(Container)`
   }
 `
 
-class Form extends React.Component {
+class ActivityForm extends React.Component {
+  renderOptions = () =>
+    ageOptions.map((el, i) => (
+      <option key={i} value={el}>{el}</option>
+    ))
   render() {
     const { bindSubmitForm, validateForm } = this.props;
 
     return <>
       <StyledContainer>
-        <Col md={{span: 10, offset: 1}}>
+        <Col md={{span: 10, offset: 1}} style={{padding: 0}}>
           <FormHeader>
-            <Title>Add the address</Title>
-            <InfoButton>Copy from existing activity</InfoButton>
+            <Title>About your activity</Title>
           </FormHeader>
           <Formik
             initialValues={initialValues}
-            onSubmit={onSubmit}
+            onSubmit={() => {}}
             render={(props) => {
               bindSubmitForm(props.submitForm, props);
               validateForm(validate(props.errors) && !validate(props.touched))
               return (
-                <form onSubmit={props.handleSubmit}>
+                <Form onSubmit={props.handleSubmit}>
                   <Field
                     type="text"
-                    name="name"
-                    label="Place name"
+                    name="activityName"
+                    label="Activity Name"
                     required={true}
                     validate={validateField}
                     component={FormField}/>
+                    <Col>
+                  <Row style={{alignItems: 'flex-end'}}>
+                      <Field
+                        as="select"
+                        name="recommendedAgeFrom"
+                        label="Recommended Age"
+                        col={{md: 6, xs: 12}}
+                        required={true}
+                        validate={validateField}
+                        component={FormField}>
+                        <option value="">From</option>
+                        {this.renderOptions()}
+                      </Field>
+                      <Field
+                        as="select"
+                        name="recommendedAgeTo"
+                        required={true}
+                        placeholder="To"
+                        col={{md: 6, xs: 12}}
+                        validate={validateField}
+                        component={FormField}>
+                        <option value="">To</option>
+                        {this.renderOptions()}
+                      </Field>
+                  </Row>
+                    </Col>
                   <Field
                     type="text"
-                    name="postCode"
-                    label="Postcode"
-                    narrow={true}
-                    required={true}
-                    validate={validateField}
-                    component={FormField}/>
-                  <Field
-                    type="text"
-                    name="buildingUnit"
-                    label="Building Unit"
-                    narrow={true}
-                    component={FormField}/>
-                  <Field
-                    type="text"
-                    name="buildingName"
+                    name="activityWebPage"
                     label="Building Name"
-                    component={FormField}/>
-                  <Field
-                    type="text"
-                    name="streetNumber"
-                    label="Street Number"
-                    component={FormField}/>
-                  <Field
-                    type="text"
-                    name="streetName"
-                    label="Street Name"
                     required={true}
-                    validate={validateField}
+                    placeholder="e.g. example.com/activity"
                     component={FormField}/>
                   <Field
                     type="text"
-                    name="town"
-                    label="Town"
+                    name="activityPhoneNumber"
+                    label="Activity Phone Number"
+                    col={{md: 6, xs: 12}}
                     component={FormField}/>
-                </form>
+                </Form>
               )
             }}
           />
@@ -111,9 +111,9 @@ class Form extends React.Component {
   }
 };
 
-Form.propTypes = {
+ActivityForm.propTypes = {
   bindSubmitForm: PropTypes.func.isRequired,
   validateForm: PropTypes.func.isRequired,
 }
 
-export default Form;
+export default ActivityForm;

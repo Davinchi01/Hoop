@@ -1,13 +1,52 @@
-import React, { Component } from 'react';
+import React, {PureComponent} from 'react';
 import FormContainer from "../../components/FormContainer/index";
+import Form from "./components/Form";
+import {Container as CustomContainer} from "../../style";
+import {mainBackgroundColor} from "../../constants/index";
+import FormFooter from "../../components/FormFooter/index";
+import Header from "../../components/Header/index";
 
-class ActivityForm extends Component {
-    render() {
-      return (
-        <FormContainer>
-        </FormContainer>
-      );
+class ActivityForm extends PureComponent {
+  state = {
+    valid: false
+  }
+
+  submitMyForm = null;
+
+  handleSubmitForm = (e) => {
+    if (this.submitMyForm) {
+      this.submitMyForm(e);
     }
+  }
+
+  bindSubmitForm = submitForm => {
+    this.submitMyForm = submitForm;
+  }
+
+  validateForm = valid => {
+    this.setState({valid})
+  }
+
+  render() {
+    return (
+      <>
+        <Header/>
+        <CustomContainer background={mainBackgroundColor}>
+          <FormContainer>
+            <Form
+              bindSubmitForm={this.bindSubmitForm}
+              validateForm={this.validateForm}
+            />
+          </FormContainer>
+        </CustomContainer>
+        <FormFooter
+          handleSubmitForm={this.handleSubmitForm}
+          validForm={this.state.valid}
+          redirectTo="/address-form"
+        />
+      </>
+    );
+  }
 }
 
 export default ActivityForm;
