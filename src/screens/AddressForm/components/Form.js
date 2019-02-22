@@ -1,6 +1,6 @@
 import React from 'react';
 import {Field, Formik} from 'formik';
-import {Col, Container} from "react-bootstrap";
+import {Col, Container, Form} from "react-bootstrap";
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -39,13 +39,13 @@ const StyledContainer = styled(Container)`
   }
 `
 
-class Form extends React.Component {
+class AddressForm extends React.Component {
   render() {
     const { bindSubmitForm, validateForm } = this.props;
 
     return <>
       <StyledContainer>
-        <Col md={{span: 10, offset: 1}}>
+        <Col md={{span: 10, offset: 1}} style={{padding: 0}}>
           <FormHeader>
             <Title>Add the address</Title>
             <InfoButton>Copy from existing activity</InfoButton>
@@ -57,7 +57,7 @@ class Form extends React.Component {
               bindSubmitForm(props.submitForm);
               validateForm(validate(props.errors) && !validate(props.touched))
               return (
-                <form onSubmit={props.handleSubmit}>
+                <Form onSubmit={props.handleSubmit}>
                   <Field
                     type="text"
                     name="name"
@@ -101,7 +101,7 @@ class Form extends React.Component {
                     name="town"
                     label="Town"
                     component={FormField}/>
-                </form>
+                </Form>
               )
             }}
           />
@@ -111,9 +111,9 @@ class Form extends React.Component {
   }
 };
 
-Form.propTypes = {
+AddressForm.propTypes = {
   bindSubmitForm: PropTypes.func.isRequired,
   validateForm: PropTypes.func.isRequired,
 }
 
-export default Form;
+export default AddressForm;
