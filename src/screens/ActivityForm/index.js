@@ -6,6 +6,19 @@ import {mainBackgroundColor} from "../../constants/index";
 import FormFooter from "../../components/FormFooter/index";
 import Header from "../../components/Header/index";
 
+import styled from 'styled-components'
+import {mobileBreakdown} from "../../constants";
+
+export const SSS = styled(FormContainer)`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  @media (max-width: ${mobileBreakdown}px) {
+    margin-bottom: -15px;
+  }
+`
+
 class ActivityForm extends PureComponent {
   state = {
     valid: false
@@ -29,22 +42,22 @@ class ActivityForm extends PureComponent {
 
   render() {
     return (
-      <>
-        <Header/>
-        <CustomContainer background={mainBackgroundColor}>
+      <CustomContainer background={mainBackgroundColor}>
+          <Header/>
           <FormContainer>
             <Form
               bindSubmitForm={this.bindSubmitForm}
               validateForm={this.validateForm}
             />
           </FormContainer>
-        </CustomContainer>
-        <FormFooter
-          handleSubmitForm={this.handleSubmitForm}
-          validForm={this.state.valid}
-          redirectTo="/address-form"
-        />
-      </>
+        <div style={{backgroundColor: 'white', height: 73}}>
+          <FormFooter
+            handleSubmitForm={this.handleSubmitForm}
+            validForm={this.state.valid}
+            redirectTo="/address-form"
+          />
+        </div>
+      </CustomContainer>
     );
   }
 }

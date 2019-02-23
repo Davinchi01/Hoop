@@ -9,14 +9,19 @@ import {
 
 export const GlobalStyles = createGlobalStyle`
   p {
-  margin: 0;
+    margin: 0;
+  }
+  html, body, #root {
+    height: 100%;
   }
 `
 
 export const Container = styled.div`
-  flex: 1;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: ${({background}) => background};
-  padding: 0 0 24px;
   @media (max-width: ${mobileBreakdown}px) {
     padding: 0;
   }

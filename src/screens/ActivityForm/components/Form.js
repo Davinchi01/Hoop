@@ -12,8 +12,7 @@ const initialValues = {
   activityName: '',
   recommendedAgeFrom: '',
   recommendedAgeTo: '',
-  activityWebPage: '',
-  activityPhoneNumber: '',
+  buildingName: '',
 }
 
 const validateField = (value) => {
@@ -90,16 +89,16 @@ class ActivityForm extends React.Component {
                     </Col>
                   <Field
                     type="text"
-                    name="activityWebPage"
+                    name="buildingName"
                     label="Building Name"
                     required={true}
                     placeholder="e.g. example.com/activity"
+                    validate={validateField}
                     component={FormField}/>
                   <Field
                     type="text"
                     name="activityPhoneNumber"
                     label="Activity Phone Number"
-                    col={{md: 6, xs: 12}}
                     component={FormField}/>
                 </Form>
               )

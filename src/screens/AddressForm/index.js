@@ -32,7 +32,7 @@ class AddressForm extends PureComponent {
       <>
         <Header/>
         <CustomContainer background={mainBackgroundColor}>
-          <FormContainer>
+          <FormContainer mb={15}>
             <Form
               bindSubmitForm={this.bindSubmitForm}
               validateForm={this.validateForm}
